@@ -16,8 +16,8 @@ const users = [
   {
     id: 1,
     email: 'test@example.com',
-    password: ' ',
-    name: 'Test User',
+    password:'password@123' ,
+    name: 'User',
     avatar: 'https://randomuser.me/api/portraits/men/1.jpg',
     bio: 'Frontend Developer at DevTinder',
     location: 'Mumbai, India',
@@ -41,6 +41,17 @@ app.post('/api/login', (req, res) => {
     res.json({ user: userInfo });
   } else {
     res.status(401).json({ message: 'Invalid credentials' });
+  }
+});
+
+// server.js
+app.get('/api/me', (req, res) => {
+  const token = req.cookies.devtinder_token;
+  if (token === 'dummy_token_value') {
+    const { password:_, ...userInfo } = users[0];
+    res.json({ user: userInfo });
+  } else {
+    res.status(401).json({ message: 'Unauthorized' });
   }
 });
 // ...existing code...

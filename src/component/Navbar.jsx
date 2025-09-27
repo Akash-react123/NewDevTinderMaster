@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
 import styles from './Navbar.module.css';
 
-const Navbar = ({ user, onLogout, onProfile, onAbout }) => {
+const defaultAvatar = "https://i.pinimg.com/736x/7f/79/6d/7f796d57218d9cd81a92d9e6e8e51ce4--free-avatars-online-profile.jpg";
+
+const Navbar = ({ user, onLogout, onProfile, onAbout, onSettings }) => {
   const [showMenu, setShowMenu] = useState(false);
 
-  const handleMenuToggle = () => setShowMenu(!showMenu);
+  const handleMenuToggle = () => setShowMenu((prev) => !prev);
 
   return (
     <nav className={styles.navbar}>
@@ -13,26 +15,26 @@ const Navbar = ({ user, onLogout, onProfile, onAbout }) => {
         <span className={styles.title}>DevTinder</span>
       </div>
       <div className={styles.userSection}>
-        {user ? (
-          <div className={styles.profileWrapper}>
+        <div className={styles.profileWrapper}>
+          <div className={styles.profileInfo} onClick={handleMenuToggle}>
             <img
-              src={user.avatar}
-              alt={user.name}
+              src={user ? user.avatar : defaultAvatar}
+              alt={user ? user.name : "Profile"}
               className={styles.avatar}
-              onClick={handleMenuToggle}
               style={{ cursor: 'pointer' }}
             />
-            {showMenu && (
-              <div className={styles.dropdownMenu}>
-                <button onClick={onProfile} className={styles.menuItem}>Profile</button>
-                <button onClick={onAbout} className={styles.menuItem}>About</button>
-                <button onClick={onLogout} className={styles.menuItem}>Log Out</button>
-              </div>
-            )}
+            {user && <span className={styles.userName}>{user.name}</span>}
+            <span className={styles.caret}>&#9662;</span>
           </div>
-        ) : (
-          <span className={styles.noUser}></span>
-        )}
+          {showMenu && (
+            <div className={styles.dropdownMenu}>
+              {user && <button onClick={onProfile} className={styles.menuItem}>Profile</button>}
+              <button onClick={onSettings} className={styles.menuItem}>Settings</button>
+              <button onClick={onAbout} className={styles.menuItem}>About</button>
+              {user && <button onClick={onLogout} className={styles.menuItem}>Log Out</button>}
+            </div>
+          )}
+        </div>
       </div>
     </nav>
   );
