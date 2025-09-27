@@ -10,6 +10,7 @@
   padding: 12px 24px;
   background: #fff;
   box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  box-sizing: border-box;
 }
 
 .logo {
@@ -31,8 +32,9 @@
 .userSection {
   display: flex;
   align-items: center;
-  max-width: 160px; /* Limit width */
+  /*max-width: 160px; /* Limit width */
   overflow: hidden;
+  padding-right: 16px;
 }
 
 .userName {

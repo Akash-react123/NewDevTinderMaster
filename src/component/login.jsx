@@ -28,7 +28,7 @@ const Login = ({ onLogin }) => {
       } else {
         setError(data.message || 'Login failed');
       }
-    } catch (err) {
+    } catch  {
       setError('Network error');
     }
     setLoading(false);
