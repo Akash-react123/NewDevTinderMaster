@@ -1,12 +1,27 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import styles from './Navbar.module.css';
 
 const defaultAvatar = "https://i.pinimg.com/736x/7f/79/6d/7f796d57218d9cd81a92d9e6e8e51ce4--free-avatars-online-profile.jpg";
 
 const Navbar = ({ user, onLogout, onProfile, onAbout, onSettings }) => {
   const [showMenu, setShowMenu] = useState(false);
+  const menuRef = useRef(null);
 
   const handleMenuToggle = () => setShowMenu((prev) => !prev);
+
+  // Close menu when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (menuRef.current && !menuRef.current.contains(event.target)) {
+        setShowMenu(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
 
   return (
     <nav className={styles.navbar}>
@@ -14,7 +29,7 @@ const Navbar = ({ user, onLogout, onProfile, onAbout, onSettings }) => {
         <img src="https://avatars.githubusercontent.com/u/118036704?s=280&v=4" alt="DevTinder Logo" className={styles.logoImg} />
         <span className={styles.title}>DevTinder</span>
       </div>
-      <div className={styles.userSection}>
+      <div className={styles.userSection} ref={menuRef}>
         <div className={styles.profileWrapper}>
           <div className={styles.profileInfo} onClick={handleMenuToggle}>
             <img
