@@ -3,7 +3,7 @@
   top: 0;
   left: 0;
   width: 100%;
-  z-index: 100;
+  z-index: 1000;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -11,6 +11,7 @@
   background: #fff;
   box-shadow: 0 2px 8px rgba(0,0,0,0.04);
   box-sizing: border-box;
+   overflow: visible !important;
 }
 
 .logo {
@@ -33,8 +34,8 @@
   display: flex;
   align-items: center;
   /*max-width: 160px; /* Limit width */
-  overflow: hidden;
-  padding-right: 16px;
+  overflow: visible;
+  /* padding-right: 16px; */
 }
 
 .userName {
@@ -65,19 +66,20 @@
   position: relative;
   display: flex;
   align-items: center;
+    overflow: visible;
 }
 
 .dropdownMenu {
   position: absolute;
-  top: 44px;
+  top: 100%;
   right: 0;
-  background: #fff;
   border-radius: 8px;
   box-shadow: 0 2px 8px rgba(0,0,0,0.12);
   display: flex;
   flex-direction: column;
-  min-width: 120px;
-  z-index: 200;
+  min-width: 140px;
+  z-index: 1001; /* Higher than navbar */
+  border: 1px solid #e0e0e0; /* Add border for better visibility */
 }
 
 .menuItem {
